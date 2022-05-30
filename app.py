@@ -67,11 +67,18 @@ class MainWindow(QMainWindow):
     def auto_complete(self):
         count_row = self.ui.tableWidget.columnCount()
         x=1
-        for k in range (1,count_row):
-            for l in range(x):
-                item = self.ui.tableWidget.item(l,k).text()
-                self.ui.tableWidget.setItem(k , l, QTableWidgetItem(item))
-            x+=1           
+        if self.ui.tableWidget.item(0,1).text() == "":
+            for k in range (1,count_row):
+                for l in range(x):
+                    item = self.ui.tableWidget.item(k,l).text()
+                    self.ui.tableWidget.setItem(l , k, QTableWidgetItem(item))
+                x+=1           
+        else:
+            for k in range (1,count_row):
+                for l in range(x):
+                    item = self.ui.tableWidget.item(l,k).text()
+                    self.ui.tableWidget.setItem(k , l, QTableWidgetItem(item))
+                x+=1           
 
 
     def getMatrixContent(self):
