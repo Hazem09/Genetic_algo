@@ -39,10 +39,10 @@ class Population():
             distances = np.max(distances) - distances
         return distances / np.sum(distances) #ceci renvoie un tableau de probabilités
 
-    def selectionne(self, k):
+    def selectionne(self, nbr_parents):
         '''Cette fonction sélectionne les parents pour l'étape de crossover'''
         fit = self.evaluate() #On evalué la generation
-        while len(self.parents) < k: #k représent le nombre de parents a selectioné
+        while len(self.parents) < nbr_parents: #k représent le nombre de parents a selectioné
             indice = np.random.randint(0, len(fit)) #on choisit un individu aléatoirement
             # on génère un nombre aléatoire entre 0 et 1 
             # et on le compare à la probabilité de l'individu d'être choisi ou non 
@@ -112,26 +112,32 @@ class Population():
 
 
 def genetic_algorithm(
-    villes,
-    mat_distance,
-    nbr_population,
-    nbr_iteration,
-    selectivity=0.2,
-    p_cross=0.7,
-    p_mut=0.1,
+    # les entrées de l'algorithme.
+    villes, # La liste des villes.
+    mat_distance, # La mtrice des disctances. 
+    nbr_population, # Le nombre de popultaion.
+    nbr_iteration, # Le nombre d'iteration (génération). 
+    selectivity=0.2, # on sélectionne 20% de la population comme parents.
+    p_cross=0.7, # La probability de croisement
+    p_mut=0.1, # la probability de mutation.
 ):
-    pop = Population(villes, mat_distance, nbr_population)
-    meilleur = pop.meilleur
-    score = float("inf")
-    histoire = []
-    for i in range(nbr_iteration):
+    pop = Population(villes, mat_distance, nbr_population) # Initialisation de la population.
+    meilleur = pop.meilleur # Le variable où on stocke le meilleur individu. 
+    score = float("inf") # On initialise la variable score avec une valeur infinie.
+    histoire = [] # La liste où on stocke le score du meilleur individu de chaque génération.
+    for i in range(nbr_iteration): # La boucle où l'on exécute l'algorithme.
+        # Ici, on sélectionne les individus qui seront les parents et le nombre de parents en entrée.
         pop.selectionne(nbr_population * selectivity)
-        histoire.append(pop.score)
+        histoire.append(pop.score) # on ajoute le score du meilleur individu de la génération à la liste.
+        # ici, on compare le meilleur score de la génération actuelle avec le meilleur score actuel de tous les temps 
+        # et on le stocke s'il est meilleur. 
         if pop.score < score:
             meilleur = pop.meilleur
             score = pop.score
-        enfants = pop.mutate(p_cross, p_mut)
-        pop.sac = enfants
+        enfants = pop.mutate(p_cross, p_mut) #on effectue les opérations de croisement et de mutation.
+        pop.sac = enfants # On prend les enfants de la génération actuelle comme individus pour la suivante.  
+
+    # Les commandes pour créer le graphe.
     figure(figsize=(8, 6), dpi=100)   
     plt.plot(range(len(histoire)), histoire, color="blue",linewidth=1.0)
     plt.xlabel("Géneration")
