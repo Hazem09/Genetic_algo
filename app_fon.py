@@ -11,6 +11,7 @@ from app_ui import Ui_MainWindow
 from Algo_genetique import genetic_algorithm
 
 class MainWindow(QMainWindow):
+    # create the main window
     def __init__(self):
         QWidget.__init__(self)
         self.ui = Ui_MainWindow()
@@ -20,6 +21,7 @@ class MainWindow(QMainWindow):
 
         
     def buttons_actions(self):
+        # defining the buttons actions
         self.ui.pushButton_matrix.clicked.connect(
             self.generateMatrix
         )
@@ -35,6 +37,7 @@ class MainWindow(QMainWindow):
 
 
     def generateMatrix(self):
+        # generate an empty matrix with nulle values in the main diagonal
         number_of_line = int(self.ui.nbr_villes.text())
         
         for j in range(0,number_of_line):
@@ -48,7 +51,8 @@ class MainWindow(QMainWindow):
                     self.ui.tableWidget.setItem(i , j, QTableWidgetItem("0"))
 
 
-    def generate_random_matrix(self): 
+    def generate_random_matrix(self):
+        # generate a symtrical matrix with random int values 
         number_of_line = int(self.ui.nbr_villes.text())
 
         for j in range(0,number_of_line):
@@ -65,6 +69,8 @@ class MainWindow(QMainWindow):
 
 
     def auto_complete(self):
+        # fills the other half of the matrix with user inputs,
+        # to create a symetrical matrix 
         count_row = self.ui.tableWidget.columnCount()
         x=1
         if self.ui.tableWidget.item(0,1).text() == "":
@@ -82,6 +88,7 @@ class MainWindow(QMainWindow):
 
 
     def getMatrixContent(self):
+        # retrieve the matrix values, and store them in a numpy array
         count_row = self.ui.tableWidget.columnCount()
         mat_distance = []
         for i in range(0,count_row):
@@ -95,17 +102,19 @@ class MainWindow(QMainWindow):
             mat_distance.append(data)    
         mat_distance=np.array(mat_distance)
 
-
+        # retrieve the rest of the user inputs.
         nbr_population = int(self.ui.nbr_population.text())
         nbr_iteration = int(self.ui.nbr_iterations.text())
         nbr_villes=int(self.ui.nbr_villes.text())
+
         villes=range(nbr_villes)
 
-
+        # calculate the execution time of the algorithm 
         debut=default_timer()
         (score,meilleur)= genetic_algorithm(villes,mat_distance,nbr_population,nbr_iteration)
         fin=default_timer()
-        self.ui.affichage.setText(f"La meilleur solution trouvé est {meilleur} avec un score de {score}.\n\nLe temps d'execution est {fin-debut}s.")
+        # prints theoutput of the results
+        self.ui.affichage.setText(f"La meilleur solution trouvé est {meilleur} avec un score de {score}.\n-------------------------\nLe temps d'execution est {fin-debut}s.")
 
 
 if __name__ == "__main__":
