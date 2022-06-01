@@ -5,7 +5,7 @@ from PyQt5.QtWidgets import (
     QTableWidgetItem
 )
 
-import sys, numpy as np,matplotlib.pyplot as plt
+import sys, numpy as np
 from timeit import default_timer
 from app_ui import Ui_MainWindow
 from Algo_genetique import genetic_algorithm

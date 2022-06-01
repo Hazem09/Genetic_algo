@@ -74,7 +74,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "Algorithme Génétique (TSP), Par: Hazem & Khaled"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "Algorithme Génétique (TSP)"))
         self.nbr_villes.setPlaceholderText(_translate("MainWindow", "Nombre de villes"))
         self.nbr_population.setPlaceholderText(_translate("MainWindow", "Nombre de population"))
         self.nbr_iterations.setPlaceholderText(_translate("MainWindow", "Nombre de generation"))
