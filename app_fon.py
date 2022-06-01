@@ -88,7 +88,7 @@ class MainWindow(QMainWindow):
             data=[]
             for j in range(0,count_row):
                 data.append(
-                    int(
+                    float(
                         self.ui.tableWidget.item(i,j).text()
                     )
                 )
