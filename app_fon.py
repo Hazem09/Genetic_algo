@@ -114,7 +114,7 @@ class MainWindow(QMainWindow):
         (score,meilleur)= genetic_algorithm(villes,mat_distance,nbr_population,nbr_iteration)
         fin=default_timer()
         # prints theoutput of the results
-        self.ui.affichage.setText(f"La meilleur solution trouvé est {meilleur} avec un score de {score}.\n-------------------------\nLe temps d'execution est {fin-debut}s.")
+        self.ui.affichage.setText(f"La meilleur solution trouvé est {meilleur} avec un score de {score}.\n\nLe temps d'execution est {fin-debut}s.")
 
 
 if __name__ == "__main__":
