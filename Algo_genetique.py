@@ -2,7 +2,8 @@ import numpy as np, matplotlib.pyplot as plt
 from matplotlib.pyplot import figure
 
 class Population():
-    '''Une classe où nous pouvons stocker la population,
+    '''Une classe où nous pouvons stocker la population, 
+    générer la première population de manière aléatoire
     le score de chaque individu, les parents sélectionnés pour le crossover,
     l'individu avec le meilleur score et la matrice des distances.'''
     def __init__(self,villes, mat_distance,nbr_population):
